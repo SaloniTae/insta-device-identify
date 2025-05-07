@@ -6,10 +6,10 @@ import ReviewMessage from '@/components/ReviewMessage';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="h-screen bg-white flex flex-col overflow-hidden">
       <InstagramHeader />
-      <div className="flex-grow flex flex-col justify-center pt-16 pb-10">
-        <div className="mt-10 sm:mt-16">
+      <div className="flex-grow flex flex-col items-center justify-center">
+        <div className="max-w-md w-full px-4">
           <ReviewClock />
           <ReviewMessage />
         </div>
