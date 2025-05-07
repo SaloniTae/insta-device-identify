@@ -1,11 +1,18 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import InstagramHeader from '@/components/InstagramHeader';
+import ReviewClock from '@/components/ReviewClock';
+import ReviewMessage from '@/components/ReviewMessage';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-white flex flex-col">
+      <InstagramHeader />
+      <div className="flex-grow flex flex-col justify-center pt-16 pb-10">
+        <div className="mt-10 sm:mt-16">
+          <ReviewClock />
+          <ReviewMessage />
+        </div>
       </div>
     </div>
   );
