@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -133,11 +132,10 @@ const App = () => {
   // This avoids encoding issues with special characters
   const simpleSlug = "/account/@heena_.begum/report/192435014247952=?";
   
-  // Use a valid route pattern that React Router can handle
-  // Replace problematic characters with encoded versions where needed
-  const complexSlugPath = "/account/@heena_.begum/report/192435014247952-special-id";
+  // Create a safe version of the complex slug that won't cause URI malformed errors
+  // Use a path parameter structure that React Router can safely handle
+  const complexSlugBase = "/account/@heena_.begum/report/complex";
   const metaParam = "metaId=bWljcm9yZXBvcnQlbmFtZT1IZWVuYV9CZWd1bSZyZXZpZXc9VHJ1ZSZ2bGQ5NzA2";
-  const complexFullPath = `${complexSlugPath}?${metaParam}`;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -154,11 +152,15 @@ const App = () => {
               {/* Redirect root to the specific slug */}
               <Route path="/" element={<Navigate to={simpleSlug} replace />} />
               
-              {/* Support both the original and new slug patterns */}
+              {/* Support the original slug pattern */}
               <Route path="/account/@heena_.begum/report/192435014247952=?" element={<Index />} />
               
-              {/* Support the new complex slug pattern with a valid route structure */}
-              <Route path={complexSlugPath} element={<Index />} />
+              {/* Support the complex original pattern with problematic characters */}
+              <Route path="/account/@heena_.begum/report/:id" element={<Index />} />
+              
+              {/* Support the encoded parameter version */}
+              <Route path={complexSlugBase} element={<Index />} />
+              <Route path={`${complexSlugBase}/:param`} element={<Index />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
