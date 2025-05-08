@@ -16,8 +16,8 @@ const ReviewClock = () => {
   });
   return <div className="relative flex items-center justify-center w-28 h-28 mx-auto mb-8">
       {/* Colorful circle rays */}
-      <div className="absolute w-full h-full">
-        {rays.map((ray, index) => <div key={index} className={`absolute left-1/2 top-1/2 w-1 h-3 ${ray.color} rounded-full`} style={{
+      <div className="absolute w-full h-full flex items-center justify-center">
+        {rays.map((ray, index) => <div key={index} className={`absolute w-1 h-3 ${ray.color} rounded-full`} style={{
         transform: `rotate(${ray.degree}deg) translateY(-42px)`
       }}></div>)}
       </div>
