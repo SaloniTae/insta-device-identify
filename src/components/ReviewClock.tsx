@@ -35,28 +35,28 @@ const ReviewClock = () => {
       <div className="absolute w-2 h-2 bg-black rounded-full z-10"></div>
 
       {/* Clock hands */}
-      {/* Minute hand */}
+      {/* Minute hand: points to 12 (0° rotation) */}
       <div
         className="absolute bg-black"
         style={{
           width: '2px',
-          height: '20px', // shortened height for minute hand
+          height: '20px', // minute hand length
           left: '50%',
           bottom: '50%',
-          transform: 'translateX(-50%) rotate(45deg)',
+          transform: 'translateX(-50%) rotate(0deg)',
           transformOrigin: 'bottom center'
         }}
       ></div>
 
-      {/* Hour hand */}
+      {/* Hour hand: points to 7 (210° rotation from 12) */}
       <div
         className="absolute bg-black"
         style={{
           width: '2px',
-          height: '15px', // shortened height for hour hand
+          height: '15px', // hour hand length
           left: '50%',
           bottom: '50%',
-          transform: 'translateX(-50%) rotate(-30deg)',
+          transform: 'translateX(-50%) rotate(210deg)',
           transformOrigin: 'bottom center'
         }}
       ></div>
