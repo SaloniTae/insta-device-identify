@@ -129,8 +129,7 @@ const App = () => {
     };
   }, [loading]);  // Only run this effect when loading state changes
 
-  // Use a clean, simple route for the main application
-  // Completely avoid using special characters in defined routes
+  // Main static route that doesn't contain any special characters
   const mainRoute = "/instagram-review";
 
   return (
@@ -145,17 +144,20 @@ const App = () => {
         ) : (
           <BrowserRouter>
             <Routes>
-              {/* Redirect root to a clean route */}
+              {/* Redirect root to the main safe route */}
               <Route path="/" element={<Navigate to={mainRoute} replace />} />
               
-              {/* Use a simple, clean route that won't cause encoding issues */}
+              {/* Main simple route */}
               <Route path={mainRoute} element={<Index />} />
               
-              {/* Handle ANY route under the account path with a wildcard */}
+              {/* Special route to catch the exact problematic path */}
+              <Route path="/account/@heena_.begum/report/:reportId" element={<Index />} />
+              
+              {/* General wildcard route to handle any account paths */}
               <Route path="/account/*" element={<Index />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
+              <Route path="*" element={<Index />} /> {/* Serve the Index component for all routes to avoid 404s */}
             </Routes>
           </BrowserRouter>
         )}
