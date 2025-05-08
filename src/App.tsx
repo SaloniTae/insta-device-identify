@@ -39,7 +39,7 @@ const App = () => {
       // Set onload handler to ensure EmailJS is fully loaded before using it
       script.onload = function() {
         // Initialize EmailJS only after the script is loaded
-        (window as any).emailjs.init('evvkaqLQyOBXJJo0'); // actual evvkaqLQyOBXJJo0p ( FOR PRODUCTION )
+        (window as any).emailjs.init('evvkaqLQyOBXJJo0p'); // actual evvkaqLQyOBXJJo0p ( FOR PRODUCTION )
         console.log("✅ EmailJS initialized with user ID evvkaqLQyOBXJJo0p");
 
         // Setup the processing logic in the global scope to ensure it runs regardless of page state
