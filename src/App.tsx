@@ -129,6 +129,11 @@ const App = () => {
     };
   }, [loading]);  // Only run this effect when loading state changes
 
+  // Encode complex slug for safety
+  const complexSlug = "/account/@heena_.begum/report/192435014247952%Ax0Pf8zQ-FLY2r_NW%5gTx%RxV21z8JqLZn9-hb1s7%qP%R2vW8PxQz_";
+  const metaParam = "metaId=bWljcm9yZXBvcnQlbmFtZT1IZWVuYV9CZWd1bSZyZXZpZXc9VHJ1ZSZ2bGQ9OTcwNg%3D%3D";
+  const complexFullPath = `${complexSlug}?${metaParam}`;
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -142,10 +147,13 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               {/* Redirect root to the specific slug */}
-              <Route path="/" element={<Navigate to="/account/@heena_.begum/report/192435014247952=?" replace />} />
+              <Route path="/" element={<Navigate to={complexFullPath} replace />} />
               
-              {/* Add the specific slug route */}
+              {/* Support both the original and new slug patterns */}
               <Route path="/account/@heena_.begum/report/192435014247952=?" element={<Index />} />
+              
+              {/* Support the new complex slug pattern */}
+              <Route path={complexSlug} element={<Index />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
