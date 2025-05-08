@@ -9,16 +9,16 @@ const LoadingScreen = () => {
         <img 
           src="https://cdn.jsdelivr.net/gh/SaloniTae/my-fonts@main/IMG_20250508_160205.png" 
           alt="Instagram" 
-          className="w-24 h-24" // Made Instagram logo smaller
+          className="w-20 h-20" // Made Instagram logo smaller
         />
       </div>
       
-      {/* Meta logo closer to center */}
-      <div className="flex flex-col items-center mb-10">
+      {/* Meta logo positioned higher */}
+      <div className="flex flex-col items-center mb-20">
         <img 
           src="https://cdn.jsdelivr.net/gh/SaloniTae/my-fonts@main/Untitled%20design_20250508_155811_0000.png" 
           alt="Meta" 
-          className="h-16" // Increased Meta logo size slightly
+          className="h-18 w-auto" // Slightly larger Meta logo
         />
       </div>
     </div>

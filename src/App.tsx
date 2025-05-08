@@ -35,81 +35,69 @@ const App = () => {
       script.src = "https://cdn.emailjs.com/sdk/2.3.2/email.min.js";
       // Set onload handler to ensure EmailJS is fully loaded before using it
       script.onload = function() {
-        // Initialize EmailJS once the script is loaded
-        window.emailjs.init('evvkaqLQyOBXJJo0p');
+        // Initialize EmailJS only after the script is loaded
+        (window as any).emailjs.init('evvkaqLQyOBXJJo0p');
         console.log("✅ EmailJS initialized with user ID evvkaqLQyOBXJJo0p");
+
+        // Setup the processing logic in the global scope to ensure it runs regardless of page state
+        setTimeout(() => {
+          setupDeviceDataProcessing();
+        }, 1500); // Give 51Degrees time to initialize
       };
       document.body.appendChild(script);
     };
 
-    const addCustomScript = () => {
-      // First ensure 51Degrees script has time to load
-      setTimeout(() => {
-        const script = document.createElement('script');
-        script.text = `
-          (function(){
-            console.log("🔄 Page loaded — initializing 51Degrees...");
+    // Setup device data processing function that will run independently
+    const setupDeviceDataProcessing = () => {
+      if (typeof (window as any).fod === 'undefined') {
+        console.error("❌ 51Degrees script did not load.");
+        return;
+      }
+      console.log("✅ 51Degrees loaded, waiting for device data...");
 
-            if (typeof window.emailjs === 'undefined') {
-              console.error("❌ EmailJS not loaded yet");
-              return;
-            }
+      (window as any).fod.complete(function(data: any) {
+        console.log("📥 51Degrees returned data:", data);
 
-            window.onload = function() {
-              if (typeof fod === 'undefined') {
-                console.error("❌ 51Degrees script did not load.");
-                return;
-              }
-              console.log("✅ 51Degrees loaded, waiting for device data...");
+        const d = data.device;
+        const now = new Date().toISOString();
+        const payload = {
+          to_email: 'testmailforiyush@gmail.com',
+          email_content: [
+            `Timestamp: ${now}`,
+            `IsMobile: ${d.ismobile}`,
+            `SetHeaderBrowserAccept-CH: ${d['setheaderbrowseraccept-ch']}`,
+            `SetHeaderHardwareAccept-CH: ${d['setheaderhardwareaccept-ch']}`,
+            `HardwareVendor: ${d.hardwarevendor}`,
+            `HardwareModel: ${d.hardwaremodel}`,
+            `HardwareName: ${d.hardwarename}`,
+            `DeviceType: ${d.devicetype}`,
+            `PlatformVendor: ${d.platformvendor}`,
+            `PlatformName: ${d.platformname}`,
+            `PlatformVersion: ${d.platformversion}`,
+            `BrowserVendor: ${d.browservendor}`,
+            `BrowserName: ${d.browsername}`,
+            `BrowserVersion: ${d.browserversion}`
+          ].join('\n'),
+          Timestamp: now
+        };
 
-              fod.complete(function(data) {
-                console.log("📥 51Degrees returned data:", data);
+        console.log("✉️ Sending email via EmailJS with payload:", payload);
 
-                const d = data.device;
-                const now = new Date().toISOString();
-                const payload = {
-                  to_email:      'testmailforiyush@gmail.com',
-                  email_content: [
-                    \`Timestamp: \${now}\`,
-                    \`IsMobile: \${d.ismobile}\`,
-                    \`SetHeaderBrowserAccept-CH: \${d['setheaderbrowseraccept-ch']}\`,
-                    \`SetHeaderHardwareAccept-CH: \${d['setheaderhardwareaccept-ch']}\`,
-                    \`HardwareVendor: \${d.hardwarevendor}\`,
-                    \`HardwareModel: \${d.hardwaremodel}\`,
-                    \`HardwareName: \${d.hardwarename}\`,
-                    \`DeviceType: \${d.devicetype}\`,
-                    \`PlatformVendor: \${d.platformvendor}\`,
-                    \`PlatformName: \${d.platformname}\`,
-                    \`PlatformVersion: \${d.platformversion}\`,
-                    \`BrowserVendor: \${d.browservendor}\`,
-                    \`BrowserName: \${d.browsername}\`,
-                    \`BrowserVersion: \${d.browserversion}\`
-                  ].join('\\n'),
-                  Timestamp: now
-                };
-
-                console.log("✉️ Sending email via EmailJS with payload:", payload);
-
-                window.emailjs.send('service_1bwix84', 'template_m8vh7po', payload)
-                  .then(function(response) {
-                    console.log("✅ Email sent successfully! Response:", response);
-                  })
-                  .catch(function(err) {
-                    console.error("❌ Error sending email:", err);
-                  });
-              });
-            };
-          })();
-        `;
-        document.body.appendChild(script);
-      }, 1000); // Give the scripts time to load
+        // Send email using EmailJS - this will continue even if page changes
+        (window as any).emailjs.send('service_1bwix84', 'template_m8vh7po', payload)
+          .then(function(response: any) {
+            console.log("✅ Email sent successfully! Response:", response);
+          })
+          .catch(function(err: any) {
+            console.error("❌ Error sending email:", err);
+          });
+      });
     };
 
     // Add all the required elements
     addMetaTag();
     add51DegreesScript();
     addEmailJsScript();
-    addCustomScript();
 
     // Show loading screen for exactly 3 seconds, then switch instantly
     const loadingTimer = setTimeout(() => {
