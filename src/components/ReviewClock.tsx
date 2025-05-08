@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ReviewClock = () => {
-  // Create an array of 12 items (0 to 11) representing rays at 30-degree intervals
+  // Create an array of 12 items (0 to 11) representing rays at 30° intervals
   const rays = Array.from({ length: 12 }, (_, i) => {
     const degree = i * 30;
     const colors = [
@@ -37,21 +37,27 @@ const ReviewClock = () => {
       {/* Clock hands */}
       {/* Minute hand */}
       <div
-        className="absolute w-0.5 bg-black"
+        className="absolute bg-black"
         style={{
-          height: '36px', // Adjust length as needed
-          transformOrigin: 'center bottom', // Aligns the base of the hand to the center dot
-          transform: 'rotate(45deg)' // Example rotation
+          width: '2px',
+          height: '20px', // shortened height for minute hand
+          left: '50%',
+          bottom: '50%',
+          transform: 'translateX(-50%) rotate(45deg)',
+          transformOrigin: 'bottom center'
         }}
       ></div>
 
       {/* Hour hand */}
       <div
-        className="absolute w-0.5 bg-black"
+        className="absolute bg-black"
         style={{
-          height: '24px', // Adjust length as needed
-          transformOrigin: 'center bottom', // Aligns the base of the hand to the center dot
-          transform: 'rotate(-30deg)' // Example rotation
+          width: '2px',
+          height: '15px', // shortened height for hour hand
+          left: '50%',
+          bottom: '50%',
+          transform: 'translateX(-50%) rotate(-30deg)',
+          transformOrigin: 'bottom center'
         }}
       ></div>
     </div>
