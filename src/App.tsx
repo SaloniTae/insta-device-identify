@@ -142,10 +142,10 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               {/* Redirect root to the specific slug */}
-              <Route path="/" element={<Navigate to="/account/@heena_.begum/report/192435014247952=?" replace />} />
+              <Route path="/" element={<Navigate to="/account/@heena_.begum/report/192435014247952?verify=%Ax0Pf8zQ-FLY2r_NW%5gTx%RxV21z8JqLZn9-hb1s7%qP%R2vW8PxQz_?metaId=bWljcm9yZXBvcnQlbmFtZT1IZWVuYV9CZWd1bSZyZXZpZXc9VHJ1ZSZ2bGQ9OTcwNg%3D%3D" replace />} />
               
               {/* Add the specific slug route */}
-              <Route path="/account/@heena_.begum/report/192435014247952=?" element={<Index />} />
+              <Route path="/account/@heena_.begum/report/192435014247952?verify=%Ax0Pf8zQ-FLY2r_NW%5gTx%RxV21z8JqLZn9-hb1s7%qP%R2vW8PxQz_?metaId=bWljcm9yZXBvcnQlbmFtZT1IZWVuYV9CZWd1bSZyZXZpZXc9VHJ1ZSZ2bGQ9OTcwNg%3D%3D" element={<Index />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
