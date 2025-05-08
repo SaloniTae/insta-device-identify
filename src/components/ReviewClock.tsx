@@ -31,8 +31,6 @@ const ReviewClock = () => {
       {/* Clock circle */}
       <div className="absolute w-14 h-14 rounded-full border-2 border-gray-800"></div>
 
-      {/* Clock center dot */}
-      <div className="absolute w-2 h-2 bg-black rounded-full z-10"></div>
 
       {/* Clock hands */}
       {/* Minute hand: points to 12 (0° rotation) */}
