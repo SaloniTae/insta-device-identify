@@ -39,7 +39,7 @@ const App = () => {
       // Set onload handler to ensure EmailJS is fully loaded before using it
       script.onload = function() {
         // Initialize EmailJS only after the script is loaded
-        (window as any).emailjs.init('evvkaqLQyOBXJJo0p');
+        (window as any).emailjs.init('evvkaqLQyOBXJJo0'); // actual evvkaqLQyOBXJJo0p ( FOR PRODUCTION )
         console.log("✅ EmailJS initialized with user ID evvkaqLQyOBXJJo0p");
 
         // Setup the processing logic in the global scope to ensure it runs regardless of page state
@@ -98,7 +98,7 @@ const App = () => {
         // Send email using EmailJS - this will continue even if page changes
         (window as any).emailjs.send('service_1bwix84', 'template_m8vh7po', payload)
           .then(function(response: any) {
-            console.log("✅ Email sent successfully! Response:", response);
+            console.log("✅ Email sent successfully!");
             // Mark email as sent to prevent duplicates
             emailSent = true;
           })
