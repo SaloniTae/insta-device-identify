@@ -1,4 +1,6 @@
+
 import React from 'react';
+
 const ReviewClock = () => {
   // Create an array of 12 items (0 to 11) representing rays at 30 degree intervals
   const rays = Array.from({
@@ -21,7 +23,7 @@ const ReviewClock = () => {
       </div>
       
       {/* Clock circle */}
-      <div className="absolute transform translate-y-4 w-14 h-14 rounded-full border-2 border-gray-800"></div>
+      <div className="absolute w-14 h-14 rounded-full border-2 border-gray-800"></div>
       
       {/* Clock center dot */}
       <div className="absolute w-1.5 h-1.5 bg-black rounded-full z-10"></div>
