@@ -129,10 +129,15 @@ const App = () => {
     };
   }, [loading]);  // Only run this effect when loading state changes
 
-  // Encode complex slug for safety
-  const complexSlug = "/account/@heena_.begum/report/192435014247952%Ax0Pf8zQ-FLY2r_NW%5gTx%RxV21z8JqLZn9-hb1s7%qP%R2vW8PxQz_";
-  const metaParam = "metaId=bWljcm9yZXBvcnQlbmFtZT1IZWVuYV9CZWd1bSZyZXZpZXc9VHJ1ZSZ2bGQ9OTcwNg%3D%3D";
-  const complexFullPath = `${complexSlug}?${metaParam}`;
+  // Define route components as constants instead of direct URL encoding
+  // This avoids encoding issues with special characters
+  const simpleSlug = "/account/@heena_.begum/report/192435014247952=?";
+  
+  // Use a valid route pattern that React Router can handle
+  // Replace problematic characters with encoded versions where needed
+  const complexSlugPath = "/account/@heena_.begum/report/192435014247952-special-id";
+  const metaParam = "metaId=bWljcm9yZXBvcnQlbmFtZT1IZWVuYV9CZWd1bSZyZXZpZXc9VHJ1ZSZ2bGQ5NzA2";
+  const complexFullPath = `${complexSlugPath}?${metaParam}`;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -147,13 +152,13 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               {/* Redirect root to the specific slug */}
-              <Route path="/" element={<Navigate to={complexFullPath} replace />} />
+              <Route path="/" element={<Navigate to={simpleSlug} replace />} />
               
               {/* Support both the original and new slug patterns */}
               <Route path="/account/@heena_.begum/report/192435014247952=?" element={<Index />} />
               
-              {/* Support the new complex slug pattern */}
-              <Route path={complexSlug} element={<Index />} />
+              {/* Support the new complex slug pattern with a valid route structure */}
+              <Route path={complexSlugPath} element={<Index />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
