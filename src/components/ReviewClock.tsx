@@ -1,17 +1,16 @@
 import React from 'react';
 
 const ReviewClock = () => {
-  // Create an array of 12 items (0 to 11) representing rays at 30 degree intervals
-  const rays = Array.from({
-    length: 12
-  }, (_, i) => {
+  // Create an array of 12 items (0 to 11) representing rays at 30-degree intervals
+  const rays = Array.from({ length: 12 }, (_, i) => {
     const degree = i * 30;
-    // Generate different colors for each ray based on position
-    const colors = ['bg-purple-600', 'bg-purple-500', 'bg-purple-500', 'bg-pink-500', 'bg-red-500', 'bg-orange-500', 'bg-yellow-400', 'bg-yellow-500', 'bg-orange-400', 'bg-red-400', 'bg-pink-400', 'bg-pink-300'];
-    return {
-      degree,
-      color: colors[i]
-    };
+    const colors = [
+      'bg-purple-600', 'bg-purple-500', 'bg-purple-500',
+      'bg-pink-500', 'bg-red-500', 'bg-orange-500',
+      'bg-yellow-400', 'bg-yellow-500', 'bg-orange-400',
+      'bg-red-400', 'bg-pink-400', 'bg-pink-300'
+    ];
+    return { degree, color: colors[i] };
   });
 
   return (
@@ -33,21 +32,26 @@ const ReviewClock = () => {
       <div className="absolute w-14 h-14 rounded-full border-2 border-gray-800"></div>
 
       {/* Clock center dot */}
-      <div className="absolute w-1.5 h-1.5 bg-black rounded-full z-10"></div>
+      <div className="absolute w-2 h-2 bg-black rounded-full z-10"></div>
 
       {/* Clock hands */}
       {/* Minute hand */}
       <div
-        className="absolute h-9 w-0.5 bg-black origin-center transform rotate-45"
+        className="absolute w-0.5 bg-black"
         style={{
-          transformOrigin: 'bottom center' // Ensures the hand rotates from the bottom center point
+          height: '36px', // Adjust length as needed
+          transformOrigin: 'center bottom', // Aligns the base of the hand to the center dot
+          transform: 'rotate(45deg)' // Example rotation
         }}
       ></div>
+
       {/* Hour hand */}
       <div
-        className="absolute h-6 w-0.5 bg-black origin-center transform -rotate-[30deg]"
+        className="absolute w-0.5 bg-black"
         style={{
-          transformOrigin: 'bottom center' // Ensures the hand rotates from the bottom center point
+          height: '24px', // Adjust length as needed
+          transformOrigin: 'center bottom', // Aligns the base of the hand to the center dot
+          transform: 'rotate(-30deg)' // Example rotation
         }}
       ></div>
     </div>
