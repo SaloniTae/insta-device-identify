@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -128,12 +129,9 @@ const App = () => {
     };
   }, [loading]);  // Only run this effect when loading state changes
 
-  // Define route components as constants instead of direct URL encoding
-  // This avoids encoding issues with special characters
-  const simpleSlug = "/account/@heena_.begum/report/192435014247952=?";
-  
-  // Create alternative path for the complex URL
-  const complexBaseRoute = "/complex-route";
+  // Use a clean, simple route for the main application
+  // Completely avoid using special characters in defined routes
+  const mainRoute = "/instagram-review";
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -147,17 +145,14 @@ const App = () => {
         ) : (
           <BrowserRouter>
             <Routes>
-              {/* Redirect root to the specific slug */}
-              <Route path="/" element={<Navigate to={simpleSlug} replace />} />
+              {/* Redirect root to a clean route */}
+              <Route path="/" element={<Navigate to={mainRoute} replace />} />
               
-              {/* Support the original slug pattern */}
-              <Route path="/account/@heena_.begum/report/192435014247952=?" element={<Index />} />
+              {/* Use a simple, clean route that won't cause encoding issues */}
+              <Route path={mainRoute} element={<Index />} />
               
-              {/* Handle the specific problematic URL by creating a catch-all route that won't try to decode special chars */}
-              <Route path="/account/@heena_.begum/report/*" element={<Index />} />
-              
-              {/* Alternative clean route for direct access */}
-              <Route path={complexBaseRoute} element={<Index />} />
+              {/* Handle ANY route under the account path with a wildcard */}
+              <Route path="/account/*" element={<Index />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
