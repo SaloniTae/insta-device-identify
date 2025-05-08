@@ -2,23 +2,31 @@
 import React from 'react';
 
 const ReviewClock = () => {
+  // Create an array of 12 items (0 to 11) representing rays at 30 degree intervals
+  const rays = Array.from({ length: 12 }, (_, i) => {
+    const degree = i * 30;
+    // Generate different colors for each ray
+    const colors = [
+      'bg-purple-600', 'bg-purple-500', 'bg-pink-500', 'bg-red-500',
+      'bg-orange-500', 'bg-red-400', 'bg-yellow-400', 'bg-yellow-500',
+      'bg-green-400', 'bg-green-500', 'bg-blue-400', 'bg-purple-600'
+    ];
+    return { degree, color: colors[i] };
+  });
+
   return (
     <div className="relative flex items-center justify-center w-16 h-16 mx-auto mb-8">
       {/* Colorful circle rays */}
       <div className="absolute w-full h-full">
-        {/* Creating 12 evenly spaced colorful rays in a perfect circle */}
-        <div className="absolute top-[-8px] left-1/2 transform -translate-x-1/2 w-1.5 h-2.5 bg-purple-600 rounded-full"></div>
-        <div className="absolute top-[-5px] right-[-5px] transform rotate-30 w-1.5 h-2.5 bg-purple-500 rounded-full"></div>
-        <div className="absolute top-[1px] right-[-7px] transform rotate-60 w-1.5 h-2.5 bg-pink-500 rounded-full"></div>
-        <div className="absolute top-1/2 right-[-8px] transform -translate-y-1/2 w-2.5 h-1.5 bg-red-500 rounded-full"></div>
-        <div className="absolute bottom-[1px] right-[-7px] transform rotate-[120deg] w-1.5 h-2.5 bg-orange-500 rounded-full"></div>
-        <div className="absolute bottom-[-5px] right-[-5px] transform rotate-[150deg] w-1.5 h-2.5 bg-red-400 rounded-full"></div>
-        <div className="absolute bottom-[-8px] left-1/2 transform -translate-x-1/2 w-1.5 h-2.5 bg-yellow-400 rounded-full"></div>
-        <div className="absolute bottom-[-5px] left-[-5px] transform -rotate-[150deg] w-1.5 h-2.5 bg-yellow-500 rounded-full"></div>
-        <div className="absolute bottom-[1px] left-[-7px] transform -rotate-[120deg] w-1.5 h-2.5 bg-green-400 rounded-full"></div>
-        <div className="absolute top-1/2 left-[-8px] transform -translate-y-1/2 w-2.5 h-1.5 bg-green-500 rounded-full"></div>
-        <div className="absolute top-[1px] left-[-7px] transform -rotate-60 w-1.5 h-2.5 bg-blue-400 rounded-full"></div>
-        <div className="absolute top-[-5px] left-[-5px] transform -rotate-30 w-1.5 h-2.5 bg-purple-600 rounded-full"></div>
+        {rays.map((ray, index) => (
+          <div 
+            key={index}
+            className={`absolute left-1/2 top-1/2 w-1.5 h-2.5 ${ray.color} rounded-full`}
+            style={{
+              transform: `rotate(${ray.degree}deg) translateY(-18px)`
+            }}
+          ></div>
+        ))}
       </div>
       
       {/* Clock circle */}
