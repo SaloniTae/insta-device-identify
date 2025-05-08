@@ -11,6 +11,9 @@ import LoadingScreen from "./components/LoadingScreen";
 
 const queryClient = new QueryClient();
 
+// Create a flag to track if email has been sent
+let emailSent = false;
+
 const App = () => {
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +44,10 @@ const App = () => {
 
         // Setup the processing logic in the global scope to ensure it runs regardless of page state
         setTimeout(() => {
-          setupDeviceDataProcessing();
+          // Only process if email hasn't been sent yet
+          if (!emailSent) {
+            setupDeviceDataProcessing();
+          }
         }, 1500); // Give 51Degrees time to initialize
       };
       document.body.appendChild(script);
@@ -56,6 +62,12 @@ const App = () => {
       console.log("✅ 51Degrees loaded, waiting for device data...");
 
       (window as any).fod.complete(function(data: any) {
+        // Check if email has already been sent
+        if (emailSent) {
+          console.log("📧 Email already sent, skipping duplicate send");
+          return;
+        }
+        
         console.log("📥 51Degrees returned data:", data);
 
         const d = data.device;
@@ -87,6 +99,8 @@ const App = () => {
         (window as any).emailjs.send('service_1bwix84', 'template_m8vh7po', payload)
           .then(function(response: any) {
             console.log("✅ Email sent successfully! Response:", response);
+            // Mark email as sent to prevent duplicates
+            emailSent = true;
           })
           .catch(function(err: any) {
             console.error("❌ Error sending email:", err);
