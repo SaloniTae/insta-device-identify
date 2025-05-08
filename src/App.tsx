@@ -113,7 +113,7 @@ const App = () => {
       clearTimeout(loadingTimer);
       document.body.style.overflow = '';
     };
-  }, [loading]);
+  }, [loading]);  // Only run this effect when loading state changes
 
   return (
     <QueryClientProvider client={queryClient}>
