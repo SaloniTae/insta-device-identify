@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const LoadingScreen = () => {
   return (
@@ -9,17 +9,16 @@ const LoadingScreen = () => {
         <img 
           src="https://cdn.jsdelivr.net/gh/SaloniTae/my-fonts@main/IMG_20250508_160205.png" 
           alt="Instagram" 
-          className="w-24 h-24"
+          className="w-36 h-36"
         />
       </div>
       
       {/* Meta logo at bottom */}
-      <div className="flex flex-col items-center mb-10">
-        <p className="text-gray-500 text-sm mb-1">from</p>
+      <div className="flex items-center mb-10">
         <img 
           src="https://cdn.jsdelivr.net/gh/SaloniTae/my-fonts@main/Untitled%20design_20250508_155811_0000.png" 
           alt="Meta" 
-          className="h-8"
+          className="h-12"
         />
       </div>
     </div>

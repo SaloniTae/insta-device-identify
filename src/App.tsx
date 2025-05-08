@@ -13,21 +13,14 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // Start fadeout after 2 seconds
-    const fadeTimer = setTimeout(() => {
-      setFadeOut(true);
-    }, 2000);
-
-    // Complete loading after fadeout animation duration (300ms)
+    // Show loading screen for exactly 3 seconds, then switch instantly
     const loadingTimer = setTimeout(() => {
       setLoading(false);
-    }, 2300);
+    }, 3000);
 
     return () => {
-      clearTimeout(fadeTimer);
       clearTimeout(loadingTimer);
     };
   }, []);
@@ -38,7 +31,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         {loading ? (
-          <div className={`h-screen ${fadeOut ? 'animate-fadeout' : ''}`}>
+          <div className="h-screen">
             <LoadingScreen />
           </div>
         ) : (
