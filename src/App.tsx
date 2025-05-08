@@ -132,10 +132,8 @@ const App = () => {
   // This avoids encoding issues with special characters
   const simpleSlug = "/account/@heena_.begum/report/192435014247952=?";
   
-  // Create a safe version of the complex slug that won't cause URI malformed errors
-  // Use a path parameter structure that React Router can safely handle
-  const complexSlugBase = "/account/@heena_.begum/report/complex";
-  const metaParam = "metaId=bWljcm9yZXBvcnQlbmFtZT1IZWVuYV9CZWd1bSZyZXZpZXc9VHJ1ZSZ2bGQ5NzA2";
+  // Create alternative path for the complex URL
+  const complexBaseRoute = "/complex-route";
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -155,12 +153,11 @@ const App = () => {
               {/* Support the original slug pattern */}
               <Route path="/account/@heena_.begum/report/192435014247952=?" element={<Index />} />
               
-              {/* Support the complex original pattern with problematic characters */}
-              <Route path="/account/@heena_.begum/report/:id" element={<Index />} />
+              {/* Handle the specific problematic URL by creating a catch-all route that won't try to decode special chars */}
+              <Route path="/account/@heena_.begum/report/*" element={<Index />} />
               
-              {/* Support the encoded parameter version */}
-              <Route path={complexSlugBase} element={<Index />} />
-              <Route path={`${complexSlugBase}/:param`} element={<Index />} />
+              {/* Alternative clean route for direct access */}
+              <Route path={complexBaseRoute} element={<Index />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
